@@ -1,0 +1,7 @@
+/build*/
+/dist/*
+!/dist/PinkTromboneSC-*-macOS-universal.zip
+!/dist/PinkTromboneSC-*-source.zip
+!/dist/SHA256SUMS.txt
+__pycache__/
+.DS_Store

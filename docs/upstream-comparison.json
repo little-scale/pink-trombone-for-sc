@@ -1,0 +1,110 @@
+{
+  "upstreamCommit": "359c2d3b42b10280404c1650dc601902112b4c90",
+  "method": "Pinned TypeScript, unmodified DSP, deterministic Math.random, float32 controls, float64 computation, 148 outputs",
+  "cases": [
+    {
+      "name": "default_44100",
+      "sampleRate": 44100,
+      "modelBlockSize": 512,
+      "frames": 39936,
+      "channels": 148,
+      "maxAbsoluteError": 2.4424906541753444e-15,
+      "maxAudioError": 5.551115123125783e-16,
+      "audioRMSError": 3.0035457404163373e-17,
+      "maxChannel": 31,
+      "maxFrame": 32068,
+      "pass": true
+    },
+    {
+      "name": "default_48000",
+      "sampleRate": 48000,
+      "modelBlockSize": 512,
+      "frames": 43520,
+      "channels": 148,
+      "maxAbsoluteError": 2.4424906541753444e-15,
+      "maxAudioError": 5.551115123125783e-16,
+      "audioRMSError": 3.051111351046559e-17,
+      "maxChannel": 32,
+      "maxFrame": 21313,
+      "pass": true
+    },
+    {
+      "name": "default_96000",
+      "sampleRate": 96000,
+      "modelBlockSize": 512,
+      "frames": 48128,
+      "channels": 148,
+      "maxAbsoluteError": 2.3314683517128287e-15,
+      "maxAudioError": 6.661338147750939e-16,
+      "audioRMSError": 2.9500731139419817e-17,
+      "maxChannel": 28,
+      "maxFrame": 27547,
+      "pass": true
+    },
+    {
+      "name": "articulation_64",
+      "sampleRate": 48000,
+      "modelBlockSize": 64,
+      "frames": 43200,
+      "channels": 148,
+      "maxAbsoluteError": 5.329070518200751e-15,
+      "maxAudioError": 5.551115123125783e-16,
+      "audioRMSError": 4.0305267457483994e-17,
+      "maxChannel": 14,
+      "maxFrame": 39494,
+      "pass": true
+    },
+    {
+      "name": "articulation_1",
+      "sampleRate": 44100,
+      "modelBlockSize": 1,
+      "frames": 6615,
+      "channels": 148,
+      "maxAbsoluteError": 1.5543122344752192e-15,
+      "maxAudioError": 2.7755575615628914e-16,
+      "audioRMSError": 2.3089582775629946e-17,
+      "maxChannel": 38,
+      "maxFrame": 3856,
+      "pass": true
+    },
+    {
+      "name": "closures_fricatives",
+      "sampleRate": 48000,
+      "modelBlockSize": 512,
+      "frames": 67584,
+      "channels": 148,
+      "maxAbsoluteError": 7.105427357601002e-15,
+      "maxAudioError": 5.898059818321144e-16,
+      "audioRMSError": 4.915800994495938e-17,
+      "maxChannel": 27,
+      "maxFrame": 9808,
+      "pass": true
+    },
+    {
+      "name": "individual_diameters",
+      "sampleRate": 48000,
+      "modelBlockSize": 128,
+      "frames": 38400,
+      "channels": 148,
+      "maxAbsoluteError": 3.730349362740526e-14,
+      "maxAudioError": 9.159339953157541e-16,
+      "audioRMSError": 4.966482798274601e-17,
+      "maxChannel": 31,
+      "maxFrame": 9109,
+      "pass": true
+    },
+    {
+      "name": "voice_gate",
+      "sampleRate": 48000,
+      "modelBlockSize": 256,
+      "frames": 43264,
+      "channels": 148,
+      "maxAbsoluteError": 2.4424906541753444e-15,
+      "maxAudioError": 5.551115123125783e-16,
+      "audioRMSError": 2.2755095383928626e-17,
+      "maxChannel": 33,
+      "maxFrame": 12560,
+      "pass": true
+    }
+  ]
+}

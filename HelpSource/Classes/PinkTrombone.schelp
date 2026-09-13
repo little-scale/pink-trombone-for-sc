@@ -1,0 +1,173 @@
+class:: PinkTrombone
+summary:: Full Pink Trombone articulatory voice model with separate audio outputs
+categories:: UGens>Generators>PhysicalModels
+related:: Classes/Formant, Classes/Klank
+
+description::
+A native port of Neil Thapen's Pink Trombone, modularized by Christian d'Heureuse.
+Implements the LF glottis, aspiration and simplex modulation, 44-cell mouth,
+28-cell nose, tongue shaping, multiple constrictions, frication, and plosive
+transients. The tract runs twice per output sample. Returns four audio signals:
+code::[mixed voice, mouth, nose, glottis]::. Select element 0 for normal listening.
+
+The default 512-sample internal model cadence matches the upstream browser.
+It does not depend on the server block size. All ordinary controls accept numbers,
+control-rate UGens, or audio-rate UGens. LF coefficients update on waveform cycles;
+shape and pitch targets update at model boundaries. Use code::modelBlockSize: 1::
+for per-sample target updates. This requires more CPU and changes the original
+block-dependent smoothing behavior.
+
+The supplied macOS binaries support Apple Silicon and Intel, scsynth and supernova.
+They are ad-hoc signed, not Developer ID signed or Apple notarized.
+
+classmethods::
+method:: ar
+argument:: freq
+Target fundamental in Hz, default 140. Clipped to 10 through 0.2 times sample rate.
+argument:: tenseness
+Target glottal tenseness, 0 to 1, default 0.6.
+argument:: tongueIndex
+Tongue position in oral cell coordinates, 0 to 43, default 12.9. Typical range 12 to 29.
+argument:: tongueDiameter
+Tongue shape diameter, 2.05 to 3.5, default 2.43.
+argument:: velum
+Nasal opening diameter, default 0.01. The original open value is 0.4.
+argument:: gate
+Positive means the glottis is touched. Default 0. Set alwaysVoice to 0 to use gate
+for note release. Releasing does not free the Synth.
+argument:: alwaysVoice
+Default 1, keeps the source sounding without a touch.
+argument:: autoWobble
+Default 1, enables the two large simplex pitch variations. Small pitch and tenseness
+noise remain when this is 0.
+argument:: vibratoAmount
+Sinusoidal fractional pitch depth, 0 to 1, default 0.005.
+argument:: vibratoFrequency
+Sinusoidal vibrato rate in Hz, 0 to 100, default 6.
+argument:: aspiration
+Aspiration noise multiplier, 0 to 10, default 1.
+argument:: frication
+Turbulence noise multiplier, 0 to 10, default 1.
+argument:: excitation
+External audio added to the glottal input of the tract, default 0.
+argument:: glottisGain
+Internal glottis gain entering the tract, 0 to 10, default 1. Set 0 to use only external
+excitation. The separate glottis output is unaffected by this gain.
+argument:: glottalReflection
+Glottal boundary reflection, default 0.75, clipped to -0.999 through 0.999.
+argument:: lipReflection
+Lip and nostril termination reflection, default -0.85, clipped to -0.999 through 0.999.
+argument:: movementSpeed
+Wall movement speed, default 15, range 0 to 1000. Zero freezes the current shape.
+argument:: transientTrig
+Positive-going trigger starts an additional transient. Automatic closure-release
+transients remain active independently.
+argument:: transientPosition
+Oral cell 0 to 43 for manual transient, default 30.
+argument:: transientStrength
+Manual transient initial strength, default 0.3, range 0 to 10.
+argument:: transientLife
+Manual transient lifetime in seconds, default 0.2, range 0 to 10.
+argument:: transientExponent
+Manual transient decay exponent, default 200. Amplitude is strength times
+code::2.pow(exponent.neg * age)::.
+argument:: reset
+Positive-going trigger clears acoustic and filter state and rewinds the seeded noise.
+argument:: seed
+Initial numeric constant, integer 0 to 16777215, default 1. Use separate seeds for independent voices.
+argument:: modelBlockSize
+Initial numeric constant, integer 1 to 512, default 512. Independent of server block size.
+argument:: diagnostics
+Initial numeric constant, 0 or 1. Default 0 returns four channels. 1 returns 148 channels.
+argument:: aspirationNoise
+External signal feeding the original 500 Hz aspiration bandpass, when enabled by externalNoise.
+argument:: fricationNoise
+External signal feeding the original 1000 Hz frication bandpass, when enabled by externalNoise.
+Held across both tract substeps and each point's noise consumption.
+argument:: externalNoise
+Bitmask: 0 uses both internal noise sources, 1 external aspiration, 2 external frication, 3 both external.
+argument:: noiseModulator
+Negative (default -1) uses glottal turbulence modulation. 0 to 1 overrides it.
+Aspiration retains its own original modulation.
+argument:: diameters
+Array of exactly 44 oral target diameters, numbers or signals. Default all -1.
+Nonnegative values override individual targets (0 to 10); negatives use the tongue shape.
+Constrictions are applied after these overrides. Use NamedControl.kr for setn access.
+argument:: noseDiameters
+Array of exactly 28 nasal diameter overrides. Default all -1. Element 0 overrides
+the velum target; other cells change at model boundaries. Custom nasal profiles
+recalculate nasal reflections. With no overrides, upstream's fixed nasal reflections are retained.
+argument:: constrictions
+Array of up to 64 code::[index, diameter, gate]:: triples. Default empty. Changes shape
+and injects turbulence. Diameter is the original touch diameter; the constricted target
+subtracts 0.3. A diameter near 0.5 produces frication, and 0.3 or less can close the tract.
+A negative diameter below -0.8 beyond cell 17 opens the velum, as in the browser.
+argument:: turbulencePoints
+Array of up to 64 additional code::[index, diameter, gate]:: triples, with noise injection
+only. Default empty. Gates have the source's 100 ms noise attack/release. Released points
+retain their last coordinates during the tail. Reusing a slot restarts its touch.
+
+returns::
+Four OutputProxy objects, or 148 with diagnostics enabled. Ordinary scalar control
+arrays expand into multiple voices. Diameter arrays and point triples describe cells
+and points of one voice and do not expand into separate voices.
+
+discussion::
+Output map (zero based):
+table::
+## 0 || Mixed voice, original 0.125 two-substep summation gain.
+## 1 || Mouth only, at the same gain as its contribution to output 0.
+## 2 || Nose only, at the same gain as its contribution to output 0.
+## 3 || Raw glottal source with aspiration, before glottisGain and external excitation.
+## 4-47 || Oral cell amplitude envelopes, when diagnostics are enabled.
+## 48-75 || Nasal cell amplitude envelopes.
+## 76-119 || Current oral cell diameters.
+## 120-147 || Current nasal cell diameters.
+::
+
+Output 0 equals output 1 plus output 2 to rounding precision. Diagnostics contain
+envelopes and geometry; they are not speaker feeds. No limiter or DC blocker is
+inserted. Use an appropriate output gain, especially with raw glottis or transients.
+
+The original 44/28-cell lengths remain unchanged at different sample rates, so
+formants vary with sample rate as in the original. Each instance uses about 0.55 MiB
+of server real-time memory, mostly for its two repeating noise buffers. Increase
+code::s.options.memSize:: before booting for many voices. Up to 256 simultaneous
+transients are retained; excess events retire the oldest. Nonfinite inputs use defaults.
+
+See the package's docs/PARAMETERS.md and docs/SOURCE_ANALYSIS.md for input bounds,
+timing details, source mapping, and real-time adaptations.
+
+examples::
+code::
+s.boot;
+x = { PinkTrombone.ar(autoWobble: 0)[0].dup * 0.4 }.play;
+x.free;
+
+// Move the tongue and open the nose.
+x = {
+    var voice = PinkTrombone.ar(
+        tongueIndex: SinOsc.kr(0.2).range(12, 29),
+        tongueDiameter: SinOsc.kr(0.13).range(2.1, 3.3),
+        velum: LFPulse.kr(0.5).range(0.01, 0.4), autoWobble: 0
+    );
+    (voice[0] * 0.3).dup
+}.play;
+x.free;
+
+// A repeating fricative touch, with its 100 ms attack and release.
+x = {
+    PinkTrombone.ar(constrictions: [[30, 0.5, LFPulse.kr(2)]])[0].dup * 0.3
+}.play;
+x.free;
+
+// Process another audio source through the tract.
+x = {
+    PinkTrombone.ar(
+        glottisGain: 0, excitation: Saw.ar(100) * 0.1,
+        tongueIndex: SinOsc.kr(0.2).range(12, 29),
+        tongueDiameter: 2.2, autoWobble: 0
+    )[0].dup
+}.play;
+x.free;
+::

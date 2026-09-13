@@ -1,0 +1,153 @@
+[
+  {
+    "server": "scsynth",
+    "architecture": "arm64",
+    "serverBlockSize": 16,
+    "framesCompared": 43520,
+    "maxAudioError": 0.0,
+    "passTest": true
+  },
+  {
+    "server": "scsynth",
+    "architecture": "arm64",
+    "serverBlockSize": 64,
+    "framesCompared": 43520,
+    "maxAudioError": 0.0,
+    "passTest": true
+  },
+  {
+    "server": "scsynth",
+    "architecture": "arm64",
+    "serverBlockSize": 512,
+    "framesCompared": 43520,
+    "maxAudioError": 0.0,
+    "passTest": true
+  },
+  {
+    "server": "scsynth",
+    "architecture": "x86_64",
+    "serverBlockSize": 64,
+    "framesCompared": 43520,
+    "maxAudioError": 0.0,
+    "passTest": true
+  },
+  {
+    "server": "scsynth",
+    "scenario": "pinkAudio",
+    "channels": 4,
+    "frames": 48064,
+    "peak": 2.5270166397094727,
+    "passTest": true
+  },
+  {
+    "server": "scsynth",
+    "scenario": "pinkDiagnostics",
+    "channels": 148,
+    "frames": 48064,
+    "peak": 2.459660291671753,
+    "passTest": true
+  },
+  {
+    "server": "scsynth",
+    "scenario": "pinkArrays",
+    "channels": 4,
+    "frames": 48064,
+    "peak": 0.9334281086921692,
+    "passTest": true
+  },
+  {
+    "server": "scsynth",
+    "scenario": "pinkExternalNoise",
+    "channels": 4,
+    "frames": 48064,
+    "peak": 0.07035195827484131,
+    "passTest": true
+  },
+  {
+    "server": "scsynth",
+    "scenario": "pinkInvalidNumbers",
+    "channels": 4,
+    "frames": 48064,
+    "peak": 0.9283853769302368,
+    "passTest": true
+  },
+  {
+    "server": "supernova",
+    "architecture": "arm64",
+    "serverBlockSize": 16,
+    "framesCompared": 43520,
+    "maxAudioError": 0.0,
+    "passTest": true
+  },
+  {
+    "server": "supernova",
+    "architecture": "arm64",
+    "serverBlockSize": 64,
+    "framesCompared": 43520,
+    "maxAudioError": 0.0,
+    "passTest": true
+  },
+  {
+    "server": "supernova",
+    "architecture": "arm64",
+    "serverBlockSize": 512,
+    "framesCompared": 43520,
+    "maxAudioError": 0.0,
+    "passTest": true
+  },
+  {
+    "server": "supernova",
+    "architecture": "x86_64",
+    "serverBlockSize": 64,
+    "framesCompared": 43520,
+    "maxAudioError": 0.0,
+    "passTest": true
+  },
+  {
+    "server": "supernova",
+    "scenario": "pinkAudio",
+    "channels": 4,
+    "frames": 48000,
+    "peak": 2.5270166397094727,
+    "passTest": true
+  },
+  {
+    "server": "supernova",
+    "scenario": "pinkDiagnostics",
+    "channels": 148,
+    "frames": 48000,
+    "peak": 2.459660291671753,
+    "passTest": true
+  },
+  {
+    "server": "supernova",
+    "scenario": "pinkArrays",
+    "channels": 4,
+    "frames": 48000,
+    "peak": 0.9334281086921692,
+    "passTest": true
+  },
+  {
+    "server": "supernova",
+    "scenario": "pinkExternalNoise",
+    "channels": 4,
+    "frames": 48000,
+    "peak": 0.0766315758228302,
+    "passTest": true
+  },
+  {
+    "server": "supernova",
+    "scenario": "pinkInvalidNumbers",
+    "channels": 4,
+    "frames": 48000,
+    "peak": 0.9283853769302368,
+    "passTest": true
+  },
+  {
+    "server": "scsynth",
+    "scenario": "allocation_failure",
+    "realTimeMemoryKiB": 256,
+    "result": "silent output and safe destruction",
+    "passTest": true
+  }
+]

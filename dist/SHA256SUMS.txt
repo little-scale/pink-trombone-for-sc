@@ -1,0 +1,2 @@
+9b98381c03d07e66b4bc08d24bd0da9329026bda9b3d56d9b9bfea27a75a2fa5  PinkTromboneSC-1.0.0-macOS-universal.zip
+cabc1829355a9ebfc2e21ebb809fc1d800bd32e1ad84c5b0c77eecfd6e678d8d  PinkTromboneSC-1.0.0-source.zip
