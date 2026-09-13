@@ -70,6 +70,13 @@ For a percussive `pinky` SynthDef with named voice controls, `LeakDC`, stereo
 panning, and a `Pbind`, see [the complete example](examples/03-pinky-all-controls.scd).
 Then try [randomizing every exposed SynthDef control with Pwhite](examples/04-pinky-random-controls.scd).
 
+For little-scale's ten-voice randomized chords through stereo reverb, see
+[the MiVerb example](examples/05-pinky-chords-and-reverb.scd). It requires the
+separate **mi-UGens** plugin for `MiVerb`. The example includes server memory
+setup, a stereo effects bus, voice-before-effect ordering, and cleanup. In this
+version, `dur` sets the envelope's release time in seconds; the exposed `decay`
+control is retained from the original patch but is unused.
+
 ```supercollider
 (
 SynthDef(\pinkVoice, { |out=0, freq=140, tongueIndex=20, tongueDiameter=2.7,
